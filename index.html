@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Μακεδονική Δυναστεία vs Δυνατοί – Δομημένη Αντιπαράθεση</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card-bg: #ffffff;
+      --accent: #7b1fa2; /* Μωβ - Βυζαντινό αυτοκρατορικό χρώμα */
+      --accent-soft: #e1bee7;
+      --accent-alt: #c62828; /* Κόκκινο */
+      --text-main: #222222;
+      --text-muted: #555555;
+      --border: #dddddd;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #fdf5ff 0, #f7f7fb 40%, #f0f0f5 100%);
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 1.2rem 1rem 0.3rem;
+      text-align: center;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .site-logo {
+      height: 52px;
+      width: auto;
+    }
+
+    header h1 {
+      margin: 0.2rem 0;
+      font-size: 1.7rem;
+      color: var(--accent);
+    }
+
+    header p {
+      margin: 0.2rem 0 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    main {
+      max-width: 950px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem 2rem;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      margin: 0.3rem 0 1rem;
+      flex-wrap: wrap;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d0c7dc;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .step-dot.active {
+      background: var(--accent);
+      transform: scale(1.2);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.4rem 1.3rem;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(6px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+
+    h3 {
+      margin-top: 0.6rem;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    p {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0.2rem 0 0.6rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+      text-align: justify;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 4px 10px rgba(123,31,162,0.2);
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+
+    button.secondary {
+      background: #e0e0e0;
+      color: #333333;
+      box-shadow: none;
+    }
+
+    button.small {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(123,31,162,0.25);
+    }
+
+    button.secondary:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* Updated Input Styles to include Date */
+    input[type="number"],
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.4rem 0.55rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      margin: 0.2rem 0 0.45rem;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+      text-align: justify;
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(123,31,162,0.12);
+    }
+
+    /* Cover Card Specifics */
+    .cover-image-container {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      background: #fdf5ff;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px dashed var(--accent-soft);
+    }
+    
+    .cover-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-height: 350px;
+      object-fit: cover;
+    }
+
+    .student-info-form {
+      background: #fafafa;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    .student-info-form label {
+      display: block;
+      margin-top: 0.5rem;
+      font-weight: 500;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    .role-box {
+      border-radius: 10px;
+      border: 1px dashed #c1b5d4;
+      padding: 0.6rem 0.7rem;
+      background: #faf5ff;
+    }
+
+    .role-box.dynatoi {
+      background: #fff4f4;
+    }
+
+    .role-box.judges {
+      background: #f5f9ff;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: var(--accent-soft);
+      color: #4a148c;
+      margin-bottom: 0.2rem;
+    }
+
+    .badge.red {
+      background: #ffcdd2;
+      color: #b71c1c;
+    }
+
+    .badge.blue {
+      background: #bbdefb;
+      color: #0d47a1;
+    }
+
+    .vote-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .vote-box {
+      border-radius: 10px;
+      padding: 0.5rem 0.6rem;
+      background: #fafafa;
+      border: 1px dashed var(--border);
+    }
+
+    .vote-results {
+      margin-top: 0.6rem;
+      font-size: 0.92rem;
+    }
+
+    .bar-chart {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .bar-label {
+      width: 130px;
+      text-align: right;
+      color: var(--text-muted);
+    }
+
+    .bar-track {
+      flex: 1;
+      background: #eeeaf5;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 12px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#7b1fa2,#ba68c8);
+      min-width: 2%;
+      transition: width 0.5s ease-out;
+    }
+
+    .bar-fill.alt {
+      background: linear-gradient(90deg,#c62828,#ef5350);
+    }
+
+    .bar-fill.neutral {
+      background: linear-gradient(90deg,#546e7a,#90a4ae);
+    }
+
+    .timer-display {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    .timer-display span {
+      display: inline-block;
+      min-width: 2ch;
+    }
+
+    .inline-inputs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 0.2rem;
+    }
+
+    .inline-inputs input[type="number"] {
+      width: 70px;
+    }
+
+    .range-row {
+      margin-bottom: 0.7rem;
+    }
+
+    .range-row label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Read-only ranges for profile */
+    .range-row input[type="range"] {
+      width: 100%;
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+
+    /* Style for the profile result section to distinguish it */
+    #profile-results-container {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 2px dashed #e0d7f3;
+      display: none; /* Hidden until calc */
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .arg-card {
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+      padding: 0.5rem 0.6rem;
+      margin-top: 0.4rem;
+      background: #fafafa;
+    }
+
+    .arg-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: var(--text-muted);
+    }
+
+    .phrase-bank {
+      margin-top: 0.6rem;
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+      padding: 0.6rem 0.7rem;
+      background: #fdf9ff;
+      font-size: 0.9rem;
+    }
+
+    .phrase-bank h4 {
+      margin: 0.2rem 0 0.2rem;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    details.scenario {
+      margin-top: 0.6rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fafafa;
+      padding: 0.5rem 0.7rem 0.6rem;
+    }
+
+    details.scenario[open] {
+      background: #f3ecff;
+      border-color: var(--accent-soft);
+    }
+
+    details.scenario summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      list-style: none;
+      outline: none;
+    }
+
+    .scenario-description {
+      margin-top: 0.4rem;
+      font-size: 0.94rem;
+      text-align: justify;
+    }
+
+    .scenario-notes {
+      margin-top: 0.4rem;
+    }
+
+    .scenario-notes h4 {
+      margin: 0.15rem 0 0.15rem;
+      font-size: 0.95rem;
+    }
+
+    .rubric-block {
+      margin-top: 0.6rem;
+      border-radius: 14px;
+      border: 1px solid #d1c4e9;
+      padding: 0.8rem 0.9rem 0.9rem;
+      background: radial-gradient(circle at top left,#f3e5f5 0,#fafafa 40%,#ffffff 100%);
+    }
+
+    .rubric-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .rubric-badge-round {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: #ede7f6;
+      color: #4a148c;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .rubric-table {
+      margin-top: 0.6rem;
+      border-radius: 10px;
+      background: #fdfbff;
+      padding: 0.45rem 0.55rem 0.55rem;
+    }
+
+    .rubric-row {
+      display: grid;
+      grid-template-columns: 2.4fr 0.9fr 0.9fr;
+      gap: 0.35rem 0.5rem;
+      align-items: center;
+      font-size: 0.9rem;
+      padding: 0.18rem 0;
+    }
+
+    .rubric-row.header {
+      font-weight: 600;
+      color: var(--text-main);
+      border-bottom: 1px solid #e0d7f3;
+      margin-bottom: 0.2rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .rubric-row:not(.header) {
+      border-bottom: 1px dashed #efe5ff;
+    }
+
+    .rubric-col-label {
+      text-align: center;
+      font-size: 0.82rem;
+      padding: 0.18rem 0.4rem;
+      border-radius: 999px;
+    }
+
+    .rubric-col-label.state-col {
+      background: #f3e5f5;
+      color: #4a148c;
+    }
+
+    .rubric-col-label.dynatoi-col {
+      background: #ffebee;
+      color: #b71c1c;
+    }
+
+    .rubric-label {
+      font-size: 0.88rem;
+      color: #4e3b63;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .rubric-table input[type="number"] {
+      width: 56px;
+      margin: 0;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .rubric-input {
+      border-radius: 999px;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.35rem;
+    }
+
+    .rubric-input-state {
+      background: #f9f1ff;
+      border-color: #d1c4e9;
+      color: #4a148c;
+    }
+
+    .rubric-input-dynatoi {
+      background: #ffebee;
+      border-color: #ffcdd2;
+      color: #b71c1c;
+    }
+
+    .rubric-input-state:focus {
+      border-color: #7b1fa2;
+      box-shadow: 0 0 0 2px rgba(123,31,162,0.2);
+    }
+
+    .rubric-input-dynatoi:focus {
+      border-color: #c62828;
+      box-shadow: 0 0 0 2px rgba(198,40,40,0.2);
+    }
+
+    .round-progress {
+      margin-top: 0.6rem;
+    }
+
+    .round-track {
+      width: 100%;
+      height: 14px;
+      background: linear-gradient(90deg,#ffebee,#ede7f6);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .round-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#c62828,#7b1fa2);
+      width: 0%;
+      transition: width 0.35s ease-out;
+    }
+
+    .round-progress-label-text {
+      margin-top: 0.25rem;
+      font-size: 0.86rem;
+      color: #4e3b63;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .round-results-text {
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      color: #3e2b58;
+      text-align: justify;
+    }
+
+    .rubric-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.7rem 0.5rem 1.3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    #print-summary {
+      display: none;
+      padding: 1.5rem;
+      max-width: 950px;
+      margin: 0 auto;
+      font-size: 0.96rem;
+    }
+
+    #print-summary h1 {
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+    
+    .print-student-info {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .print-student-info p {
+      margin: 0.3rem 0;
+      font-size: 1.1rem;
+    }
+
+    #print-summary h2 {
+      font-size: 1.1rem;
+      margin-top: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    #print-summary p {
+      line-height: 1.4;
+      text-align: justify;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.35rem;
+      }
+      .card {
+        padding: 1.1rem 0.95rem;
+      }
+      .rubric-row {
+        grid-template-columns: 1.9fr 0.8fr 0.8fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+      }
+      header,
+      main,
+      footer,
+      .no-print {
+        display: none !important;
+      }
+      #print-summary {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="title-row">
+    <img src="greek logo.png" alt="Λογότυπο" class="site-logo">
+    <h1>Μακεδονική Δυναστεία vs Δυνατοί</h1>
+  </div>
+  <p>Δομημένη αντιπαράθεση για τη γη, την οικονομία και τη δικαιοσύνη στο Βυζάντιο</p>
+  <div class="step-indicator" id="stepIndicator"></div>
+</header>
+
+<main>
+  <section class="card step active" id="step-cover">
+    <div class="cover-image-container">
+      <img src="image.png" alt="Εξώφυλλο - Μακεδονική Δυναστεία" class="cover-image">
+    </div>
+
+    <h2 style="text-align:center;">Καλώς ήρθατε</h2>
+    <p>
+      Πριν ξεκινήσετε τη δραστηριότητα, παρακαλούμε συμπληρώστε τα στοιχεία σας. 
+      Τα στοιχεία αυτά θα εμφανιστούν κατά την τελική εκτύπωση των αποτελεσμάτων.
+    </p>
+
+    <div class="student-info-form">
+      <label for="student-name">Ονοματεπώνυμο/Όνομα Ομάδας:</label>
+      <input type="text" id="student-name" placeholder="Γράψτε το ονοματεπώνυμό σας/Όνομα Ομάδας">
+
+      <label for="student-class">Τάξη / Τμήμα:</label>
+      <input type="text" id="student-class" placeholder="π.χ. Β4 Γυμνασίου, Β2 Λυκείου">
+
+      <label for="activity-date">Ημερομηνία:</label>
+      <input type="date" id="activity-date">
+    </div>
+
+    <div class="btn-row" style="justify-content: center; margin-top: 1.5rem;">
+      <button type="button" data-next>Έναρξη ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 1: Εισαγωγή στο θέμα</h2>
+    <p>
+      Θα δουλέψουμε πάνω στη μεγάλη κοινωνική σύγκρουση του 10ου αιώνα ανάμεσα στο <strong>Βυζαντινό Κράτος (Μακεδονική Δυναστεία)</strong> και στους <strong>Δυνατούς (Μεγαλογαιοκτήμονες)</strong>.
+    </p>
+    <p>
+      Οι αυτοκράτορες προσπαθούν να προστατεύσουν τους ελεύθερους αγρότες και τα στρατιωτικά κτήματα, ενώ οι Δυνατοί επιδιώκουν να αυξήσουν την περιουσία και την επιρροή τους. Θα χωριστούμε σε ομάδες, θα προετοιμάσετε επιχειρήματα με βάση τις Νεαρές (νόμους) της εποχής και στο τέλος θα δούμε αν και πόσο άλλαξε η άποψή σας για τη δικαιοσύνη και την κρατική παρέμβαση.
+    </p>
+    <p>
+      Σκοπός είναι να κατανοήσουμε τη σημασία της αγροτικής κοινότητας για την άμυνα και την οικονομία του Βυζαντίου, αλλά και τα επιχειρήματα της κάθε πλευράς.
+    </p>
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Εξώφυλλο</button>
+      <button type="button" data-next>Επόμενο ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 2: Αρχική ψηφοφορία</h2>
+    <p>
+      Πριν ξεκινήσει το debate, η τάξη τοποθετείται αυθόρμητα στο ερώτημα:
+    </p>
+    <p><strong>«Ποια πλευρά θεωρείς ότι είχε το δίκιο με το μέρος της;»</strong></p>
+    
+    <div class="vote-inputs">
+      <div class="vote-box">
+        <strong>Υπέρ Μακεδονικής Δυναστείας</strong>
+        <input type="number" id="pre-state" min="0" value="0">
+      </div>
+      <div class="vote-box">
+        <strong>Υπέρ Δυνατών</strong>
+        <input type="number" id="pre-dynatoi" min="0" value="0">
+      </div>
+      <div class="vote-box">
+        <strong>Δεν είμαι σίγουρος/η</strong>
+        <input type="number" id="pre-unsure" min="0" value="0">
+      </div>
+    </div>
+
+    <button class="small no-print" type="button" onclick="calculatePreVote()">Υπολογισμός &amp; γράφημα</button>
+
+    <div id="pre-results" class="vote-results"></div>
+    <div id="pre-chart" class="bar-chart"></div>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button type="button" data-next>Επόμενο βήμα ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 3: Ομάδες &amp; ρόλοι</h2>
+    <p>
+      Η τάξη χωρίζεται σε δύο βασικές ομάδες και, αν το επιθυμείτε,
+      σε μια τρίτη ομάδα κριτών/τριών.
+    </p>
+
+    <div class="grid-2">
+      <div class="role-box">
+        <div class="badge">👑 Ομάδα Μακεδονικής Δυναστείας</div>
+        <p>
+          Υπερασπίζεται την ανάγκη ύπαρξης των <strong>ελεύθερων αγροτών</strong> για την είσπραξη φόρων και τη στελέχωση του στρατού.
+          Θέλει να περιορίσει την απληστία των Δυνατών μέσω νόμων (Νεαρές).
+        </p>
+      </div>
+      <div class="role-box dynatoi">
+        <div class="badge red">💰 Ομάδα Δυνατών</div>
+        <p>
+          Υπερασπίζεται το δικαίωμα στην <strong>ιδιοκτησία</strong> και την ελεύθερη αγορά γης.
+          Θεωρούν ότι βελτιώνουν τα κτήματα που αγοράζουν και ότι οι νόμοι με αναδρομική ισχύ είναι άδικοι.
+        </p>
+      </div>
+      <div class="role-box judges">
+        <div class="badge blue">⚖️ Κριτές – Παρατηρητές/τριες</div>
+        <p>
+          Παρακολουθούν το debate, σημειώνουν τα πιο πειστικά επιχειρήματα
+          και ελέγχουν αν χρησιμοποιούνται σωστά τα ιστορικά δεδομένα.
+        </p>
+      </div>
+    </div>
+
+    <p class="muted">
+      Μπορείτε να σημειώσετε εδώ πώς κατανεμήθηκαν οι μαθητές/τριες (προαιρετικό):
+    </p>
+    <textarea id="roles-notes" placeholder="Σύντομη σημείωση για τη σύνθεση των ομάδων..."></textarea>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button type="button" data-next>Επόμενο βήμα ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 4: Τράπεζα επιχειρημάτων</h2>
+    <p>
+      Οι ομάδες προετοιμάζουν 3–5 βασικά επιχειρήματα βάσει του ιστορικού υλικού (Πρόχειρος Νόμος, Νεαρές).
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h3>👑 Επιχειρήματα Δυναστείας</h3>
+        <div id="state-arguments"></div>
+        <button class="small no-print" type="button" onclick="addArgumentCard('state')">➕ Προσθήκη επιχειρήματος</button>
+        <p class="muted">
+          Π.χ. «Χωρίς ελεύθερους αγρότες δεν υπάρχει στρατός.»
+        </p>
+      </div>
+
+      <div>
+        <h3>💰 Επιχειρήματα Δυνατών</h3>
+        <div id="dynatoi-arguments"></div>
+        <button class="small no-print" type="button" onclick="addArgumentCard('dynatoi')">➕ Προσθήκη επιχειρήματος</button>
+        <p class="muted">
+          Π.χ. «Οι βελτιώσεις που κάναμε στα κτήματα πρέπει να αποζημιωθούν.»
+        </p>
+      </div>
+    </div>
+
+    <div class="btn-row no-print" style="margin-top:0.8rem;">
+      <button class="small secondary" type="button" onclick="printArguments()">🖨️ Αποθήκευση / Εκτύπωση επιχειρημάτων σε PDF</button>
+      <span></span>
+    </div>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button type="button" data-next>Σενάρια & Νόμοι ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+  <h2>Βήμα 5: Εφαρμογή των Νόμων (Νεαρές)</h2>
+  <p>
+    Αναλύστε τα παρακάτω σενάρια με βάση τη νομοθεσία των Μακεδόνων αυτοκρατόρων.
+  </p>
+
+    <button id="phrase-bank-toggle" class="small secondary no-print" type="button" onclick="togglePhraseBank()">
+      🗣️ Φράσεις για διατύπωση επιχειρημάτων
+    </button>
+
+    <div id="phrase-bank" class="phrase-bank no-print" style="display:none;">
+      <h4>Φράσεις από την οπτική της Δυναστείας (Υπέρ Κράτους)</h4>
+      <ul>
+        <li>«Η άμυνα και η οικονομία του Βυζαντίου είναι αδιανόητα χωρίς τη μικρή ιδιοκτησία.»</li>
+        <li>«Οι Δυνατοί προξενούν μεγάλη καταστροφή στο κοινό συμφέρον.»</li>
+        <li>«Πρέπει να προτιμώνται οι συγγενείς και οι γείτονες στην αγορά γης (Προτίμηση).»</li>
+        <li>«Όποιος έχει στρατιωτικό κτήμα, οφείλει να υπηρετεί στον στρατό.»</li>
+        <li>«Οι πλούσιοι πρέπει να πληρώνουν για τους φτωχούς (Αλληλέγγυον).»</li>
+      </ul>
+
+      <h4>Φράσεις από την οπτική των Δυνατών (Υπέρ Αριστοκρατίας)</h4>
+      <ul>
+        <li>«Κάνουμε βελτιώσεις στα κτήματα και αυξάνουμε την παραγωγή.»</li>
+        <li>«Είναι άδικο να μας παίρνετε τη γη πίσω χωρίς αποζημίωση μετά από τόσα χρόνια.»</li>
+        <li>«Γιατί να πληρώνω εγώ τους φόρους του γείτονα; (Κατά του Αλληλέγγυου).»</li>
+        <li>«Ο νόμος του 996 με αναδρομική ισχύ παραβιάζει κάθε αρχή δικαίου.»</li>
+      </ul>
+    </div>
+
+    <details class="scenario" data-state-id="scenario1-state" data-dynatoi-id="scenario1-dynatoi">
+      <summary>🏘️ Σενάριο 1 – Το Δικαίωμα της Προτίμησης</summary>
+      <p class="scenario-description">
+        Ένας φτωχός αγρότης θέλει να πουλήσει το χωράφι του.
+        Ένας "Δυνατός" προσφέρει καλή τιμή.
+        Ο νόμος όμως υποχρεώνει τον αγρότη να το προσφέρει πρώτα στους συγγενείς και στους γείτονες.
+      </p>
+      <div class="grid-2 scenario-notes">
+        <div>
+          <h4>Οπτική Δυναστείας</h4>
+          <textarea id="scenario1-state" placeholder="Γιατί είναι απαραίτητος αυτός ο περιορισμός;"></textarea>
+        </div>
+        <div>
+          <h4>Οπτική Δυνατών</h4>
+          <textarea id="scenario1-dynatoi" placeholder="Γιατί θεωρούν άδικο να εμποδίζεται η ελεύθερη αγοραπωλησία;"></textarea>
+        </div>
+      </div>
+    </details>
+
+    <details class="scenario" data-state-id="scenario2-state" data-dynatoi-id="scenario2-dynatoi">
+      <summary>💸 Σενάριο 2 – Το Αλληλέγγυον (1002)</summary>
+      <p class="scenario-description">
+        Σε ένα χωριό, πολλοί φτωχοί αγρότες δεν μπορούν να πληρώσουν τους φόρους τους.
+        Ο αυτοκράτορας Βασίλειος Β' διατάζει τον τοπικό Δυνατό να πληρώσει εκείνος τους φόρους των φτωχών.
+      </p>
+      <div class="grid-2 scenario-notes">
+        <div>
+          <h4>Οπτική Δυναστείας</h4>
+          <textarea id="scenario2-state" placeholder="Πώς δικαιολογεί το κράτος αυτό το μέτρο;"></textarea>
+        </div>
+        <div>
+          <h4>Οπτική Δυνατών</h4>
+          <textarea id="scenario2-dynatoi" placeholder="Πώς αντιδρούν οι Δυνατοί σε αυτή την επιπλέον φορολόγηση;"></textarea>
+        </div>
+      </div>
+    </details>
+
+    <details class="scenario" data-state-id="scenario3-state" data-dynatoi-id="scenario3-dynatoi">
+      <summary>📜 Σενάριο 3 – Η Αναδρομική Ισχύς (Νεαρά 996)</summary>
+      <p class="scenario-description">
+        Ο Βασίλειος Β' βγάζει νέα Νεαρά (996) που καταργεί την παραγραφή των 40 ετών.
+        Διατάζει να επιστραφούν τα κτήματα στους φτωχούς χωρίς αποζημίωση, με ισχύ από το 922 (εποχή Ρωμανού Λεκαπηνού).
+      </p>
+      <div class="grid-2 scenario-notes">
+        <div>
+          <h4>Οπτική Δυναστείας</h4>
+          <textarea id="scenario3-state" placeholder="Γιατί ο αυτοκράτορας είναι τόσο αυστηρός;"></textarea>
+        </div>
+        <div>
+          <h4>Οπτική Δυνατών</h4>
+          <textarea id="scenario3-dynatoi" placeholder="Τι λένε οι Δυνατοί για την ασφάλεια δικαίου;"></textarea>
+        </div>
+      </div>
+    </details>
+
+    <div class="btn-row no-print" style="margin-top:0.8rem;">
+      <button class="small secondary" type="button" onclick="printScenarios()">🖨️ Αποθήκευση / Εκτύπωση σεναρίων σε PDF</button>
+      <span></span>
+    </div>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button type="button" data-next>Debate &amp; χρονόμετρο ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 6: Debate «Αυτοκράτορες vs Δυνατοί»</h2>
+    <p>
+      Ακολουθεί το debate. Ο χρόνος του/της κάθε ομιλητή/τριας ρυθμίζεται από το χρονόμετρο.
+    </p>
+
+    <h3>Χρονόμετρο</h3>
+    <div class="inline-inputs">
+      <label for="timer-minutes" class="muted">Λεπτά:</label>
+      <input type="number" id="timer-minutes" min="0" value="3">
+      <label for="timer-seconds" class="muted">Δευτ.:</label>
+      <input type="number" id="timer-seconds" min="0" max="59" value="0">
+      <label for="speaker-select" class="muted">Ομάδα που μιλά:</label>
+      <select id="speaker-select">
+        <option value="Δυναστεία">👑 Δυναστεία</option>
+        <option value="Δυνατοί">💰 Δυνατοί</option>
+      </select>
+    </div>
+
+    <div class="timer-display" id="timer-display">
+      <span id="display-min">03</span>:<span id="display-sec">00</span>
+    </div>
+    <p class="muted" id="current-speaker">Τώρα μιλά: Δυναστεία</p>
+
+    <div class="btn-row no-print">
+      <button class="small" type="button" onclick="startTimer()">▶ Έναρξη</button>
+      <button class="small secondary" type="button" onclick="resetTimer()">⏹ Στοπ / Επαναφορά</button>
+    </div>
+
+    <h3>Κριτήρια Αξιολόγησης</h3>
+    <div class="rubric-block">
+      <div class="rubric-title-row">
+        <strong>Rubric αξιολόγησης</strong>
+        <span class="rubric-badge-round">Κλίμακα 1–4</span>
+      </div>
+      <p class="muted" style="margin-top:0.3rem;">
+        1 = χρειάζεται βελτίωση, 4 = εξαιρετικά.
+      </p>
+
+      <div class="rubric-table">
+        <div class="rubric-row header">
+          <div>Κριτήριο</div>
+          <div class="rubric-col-label state-col">👑 Δυναστεία</div>
+          <div class="rubric-col-label dynatoi-col">💰 Δυνατοί</div>
+        </div>
+
+        <div class="rubric-row">
+          <div class="rubric-label">Χρήση ιστορικών στοιχείων (Νεαρές, νόμοι);</div>
+          <div><input class="rubric-input rubric-input-state" type="number" min="1" max="4" id="rubric-state-1"></div>
+          <div><input class="rubric-input rubric-input-dynatoi" type="number" min="1" max="4" id="rubric-dynatoi-1"></div>
+        </div>
+
+        <div class="rubric-row">
+          <div class="rubric-label">Σαφήνεια επιχειρημάτων (οικονομία/άμυνα);</div>
+          <div><input class="rubric-input rubric-input-state" type="number" min="1" max="4" id="rubric-state-2"></div>
+          <div><input class="rubric-input rubric-input-dynatoi" type="number" min="1" max="4" id="rubric-dynatoi-2"></div>
+        </div>
+
+        <div class="rubric-row">
+          <div class="rubric-label">Σεβασμός στον αντίλογο;</div>
+          <div><input class="rubric-input rubric-input-state" type="number" min="1" max="4" id="rubric-state-3"></div>
+          <div><input class="rubric-input rubric-input-dynatoi" type="number" min="1" max="4" id="rubric-dynatoi-3"></div>
+        </div>
+      </div>
+
+      <div class="rubric-buttons-row no-print">
+        <button class="small" type="button" onclick="calculateRoundScores()">📏 Υπολογισμός</button>
+        <button class="small secondary" type="button" onclick="printRound()">🖨️ Εκτύπωση βαθμολογίας</button>
+      </div>
+
+      <div id="round-results" class="round-results-text"></div>
+      <div class="round-progress">
+        <div class="round-track" id="round-progress-track">
+          <div class="round-fill" id="round-progress-fill"></div>
+        </div>
+        <div id="round-progress-label" class="round-progress-label-text"></div>
+      </div>
+    </div>
+
+    <textarea id="judges-notes" placeholder="Σημειώσεις κριτών (προαιρετικά)..."></textarea>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button type="button" data-next>Τελική ψηφοφορία & Συμπέρασμα ➜</button>
+    </div>
+  </section>
+
+  <section class="card step">
+    <h2>Βήμα 7: Τελική Ψηφοφορία &amp; Συμπέρασμα</h2>
+    <p>
+      Μετά το debate, η τάξη ψηφίζει ξανά. 
+      Τα αποτελέσματα θα καθορίσουν αυτόματα το πολιτικό προφίλ της τάξης.
+    </p>
+
+    <div class="vote-inputs">
+      <div class="vote-box">
+        <strong>Υπέρ Δυναστείας (μετά)</strong>
+        <input type="number" id="post-state" min="0" value="0">
+      </div>
+      <div class="vote-box">
+        <strong>Υπέρ Δυνατών (μετά)</strong>
+        <input type="number" id="post-dynatoi" min="0" value="0">
+      </div>
+      <div class="vote-box">
+        <strong>Δεν είμαι σίγουρος/η (μετά)</strong>
+        <input type="number" id="post-unsure" min="0" value="0">
+      </div>
+    </div>
+
+    <button class="small no-print" type="button" onclick="calculatePostVoteAndProfile()">Υπολογισμός &amp; Εμφάνιση Προφίλ</button>
+
+    <div id="post-results" class="vote-results"></div>
+    <div id="post-chart" class="bar-chart"></div>
+
+    <div id="profile-results-container">
+      <h3>Πολιτικό Προφίλ της Τάξης</h3>
+      <p class="muted">
+        Με βάση τις ψήφους σας, το προφίλ της τάξης υπολογίστηκε αυτόματα:
+      </p>
+
+      <div id="citizen-sliders">
+        <div class="range-row">
+          <label>
+            <span>Εμπιστοσύνη στην Κρατική Παρέμβαση</span>
+            <span id="val-intervention">50%</span>
+          </label>
+          <input type="range" id="range-intervention" min="0" max="100" value="50" disabled>
+          <p class="hint">0% = Ελεύθερη αγορά (Δυνατοί), 100% = Κρατικός έλεγχος (Δυναστεία)</p>
+        </div>
+        <div class="range-row">
+          <label>
+            <span>Κοινωνική Δικαιοσύνη (Φόροι στους πλούσιους)</span>
+            <span id="val-justice">50%</span>
+          </label>
+          <input type="range" id="range-justice" min="0" max="100" value="50" disabled>
+          <p class="hint">0% = Προστασία Πλούτου, 100% = Αναδιανομή υπέρ φτωχών</p>
+        </div>
+      </div>
+
+      <div id="citizen-summary" class="card" style="margin-top:0.7rem; padding:0.7rem 0.8rem; border-style:dashed;">
+        <p class="muted">
+          (Ο υπολογισμός εκκρεμεί...)
+        </p>
+      </div>
+
+      <h3>Συλλογικό συμπέρασμα</h3>
+      <textarea id="class-summary" placeholder="Τελικά, ήταν δικαιολογημένος ο σκληρός αγώνας των αυτοκρατόρων κατά των δυνατών;"></textarea>
+
+      <button class="small no-print" type="button" onclick="printResults()">🖨️ Αποθήκευση / Εκτύπωση αποτελεσμάτων</button>
+    </div>
+
+    <div class="btn-row no-print">
+      <button class="secondary" type="button" data-prev>⟵ Προηγούμενο</button>
+      <button class="secondary" type="button" onclick="goToStep(0)">⬅ Επιστροφή στην αρχή</button>
+    </div>
+  </section>
+</main>
+
+<div id="print-summary"></div>
+
+<footer>
+  ✨✍️ Δημιουργία: Παναγιώτης Δόμβρος, Εκπαιδευτικός Αγγλικών-Θεατρολόγος, Με την Επιφύλαξη Παντός Δικαιώματος ✍️✨
+</footer>
+
+<script>
+  // --- Πλοήγηση βημάτων ---
+  const steps = Array.from(document.querySelectorAll('.step'));
+  const stepIndicator = document.getElementById('stepIndicator');
+  let currentStep = 0;
+
+  function buildStepDots() {
+    stepIndicator.innerHTML = '';
+    steps.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.className = 'step-dot' + (idx === 0 ? ' active' : '');
+      stepIndicator.appendChild(dot);
+    });
+  }
+
+  function updateStepDots() {
+    const dots = stepIndicator.querySelectorAll('.step-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentStep);
+    });
+  }
+
+  function showStep(index) {
+    if (index < 0 || index >= steps.length) return;
+    steps.forEach((step, i) => {
+      step.classList.toggle('active', i === index);
+    });
+    currentStep = index;
+    updateStepDots();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goToStep(index) {
+    showStep(index);
+  }
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep < steps.length - 1) showStep(currentStep + 1);
+    });
+  });
+
+  document.querySelectorAll('[data-prev]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 0) showStep(currentStep - 1);
+    });
+  });
+
+  buildStepDots();
+
+  // --- Helper to get Student Info for Printing ---
+  function getStudentInfoHTML() {
+    const name = document.getElementById('student-name').value || '-';
+    const cls = document.getElementById('student-class').value || '-';
+    const date = document.getElementById('activity-date').value || '-';
+    
+    return `
+      <div class="print-student-info">
+        <p><strong>Ονοματεπώνυμο:</strong> ${name}</p>
+        <p><strong>Τάξη / Τμήμα:</strong> ${cls}</p>
+        <p><strong>Ημερομηνία:</strong> ${date}</p>
+      </div>
+    `;
+  }
+
+  // --- Ψηφοφορίες ---
+  let preVote = { state: 0, dynatoi: 0, unsure: 0 };
+
+  function calculatePreVote() {
+    const s = parseInt(document.getElementById('pre-state').value) || 0;
+    const d = parseInt(document.getElementById('pre-dynatoi').value) || 0;
+    const u = parseInt(document.getElementById('pre-unsure').value) || 0;
+    const total = s + d + u;
+
+    preVote = { state: s, dynatoi: d, unsure: u };
+
+    const resEl = document.getElementById('pre-results');
+    const chartEl = document.getElementById('pre-chart');
+
+    if (total === 0) {
+      resEl.textContent = 'Δεν έχουν καταγραφεί ψήφοι.';
+      chartEl.innerHTML = '';
+      return;
+    }
+
+    const ps = ((s / total) * 100).toFixed(1);
+    const pd = ((d / total) * 100).toFixed(1);
+    const pu = ((u / total) * 100).toFixed(1);
+
+    resEl.innerHTML =
+      `Σύνολο: <strong>${total}</strong> – ` +
+      `Δυναστεία: <strong>${s}</strong> (${ps}%), ` +
+      `Δυνατοί: <strong>${d}</strong> (${pd}%), ` +
+      `Αβέβαιοι: <strong>${u}</strong> (${pu}%).`;
+
+    chartEl.innerHTML = '';
+    chartEl.appendChild(makeBarRow('Δυναστεία', ps, 'state'));
+    chartEl.appendChild(makeBarRow('Δυνατοί', pd, 'dynatoi'));
+    chartEl.appendChild(makeBarRow('Αβέβαιοι', pu, 'unsure'));
+  }
+
+  // Merged Function: Calculates Vote AND Automatically updates Profile
+  function calculatePostVoteAndProfile() {
+    const s = parseInt(document.getElementById('post-state').value) || 0;
+    const d = parseInt(document.getElementById('post-dynatoi').value) || 0;
+    const u = parseInt(document.getElementById('post-unsure').value) || 0;
+    const total = s + d + u;
+
+    const resEl = document.getElementById('post-results');
+    const chartEl = document.getElementById('post-chart');
+    const profileContainer = document.getElementById('profile-results-container');
+
+    if (total === 0) {
+      resEl.textContent = 'Δεν έχουν καταγραφεί ψήφοι.';
+      chartEl.innerHTML = '';
+      profileContainer.style.display = 'none';
+      return;
+    }
+
+    // 1. Calculate and Display Votes
+    const ps = ((s / total) * 100).toFixed(1);
+    const pd = ((d / total) * 100).toFixed(1);
+    const pu = ((u / total) * 100).toFixed(1);
+
+    const diffS = s - preVote.state;
+    const diffD = d - preVote.dynatoi;
+
+    function diffText(v) {
+      if (v > 0) return `(+${v})`;
+      if (v < 0) return `(${v})`;
+      return '';
+    }
+
+    resEl.innerHTML =
+      `Σύνολο: <strong>${total}</strong> – ` +
+      `Δυναστεία: <strong>${s}</strong> (${ps}%) ${diffText(diffS)}, ` +
+      `Δυνατοί: <strong>${d}</strong> (${pd}%) ${diffText(diffD)}.`;
+
+    chartEl.innerHTML = '';
+    chartEl.appendChild(makeBarRow('Δυναστεία (μετά)', ps, 'state'));
+    chartEl.appendChild(makeBarRow('Δυνατοί (μετά)', pd, 'dynatoi'));
+    chartEl.appendChild(makeBarRow('Αβέβαιοι (μετά)', pu, 'unsure'));
+
+    // 2. Automate Profile Calculation based on Votes
+    // Logic: 
+    // Dynasty Vote adds to Intervention/Justice.
+    // Dynatoi Vote subtracts (pushes to Free Market).
+    // Unsure counts as neutral (0.5 weight).
+    
+    // Score from 0 to 100.
+    // Formula: (State + (0.5 * Unsure)) / Total * 100
+    let interventionScore = ((s + (u * 0.5)) / total) * 100;
+    let justiceScore = ((s + (u * 0.5)) / total) * 100;
+
+    // Apply to sliders
+    document.getElementById('range-intervention').value = interventionScore;
+    document.getElementById('range-justice').value = justiceScore;
+    
+    document.getElementById('val-intervention').textContent = Math.round(interventionScore) + '%';
+    document.getElementById('val-justice').textContent = Math.round(justiceScore) + '%';
+
+    // Update Summary Text
+    const summary = document.getElementById('citizen-summary');
+    let text = "Με βάση την τελική ψηφοφορία, η τάξη ";
+    
+    if (interventionScore > 65) text += "τάσσεται ξεκάθαρα υπέρ της κρατικής παρέμβασης και των μέτρων προστασίας των αδυνάτων (Φιλοσοφία Μακεδόνων). ";
+    else if (interventionScore < 35) text += "δείχνει ισχυρή προτίμηση στην ελευθερία των συναλλαγών και την προστασία της ιδιοκτησίας (Θέση Δυνατών). ";
+    else text += "εμφανίζεται διχασμένη ή αναζητά μια μέση οδό ανάμεσα στον κρατικό έλεγχο και την ελεύθερη αγορά. ";
+
+    summary.innerHTML = `<p>${text}</p>`;
+
+    // Show Container
+    profileContainer.style.display = 'block';
+  }
+
+  function makeBarRow(label, percent, type) {
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+
+    const labelEl = document.createElement('div');
+    labelEl.className = 'bar-label';
+    labelEl.textContent = `${label}`;
+
+    const track = document.createElement('div');
+    track.className = 'bar-track';
+
+    const fill = document.createElement('div');
+    fill.className = 'bar-fill';
+    if (type === 'dynatoi') fill.classList.add('alt');
+    if (type === 'unsure') fill.classList.add('neutral');
+    fill.style.width = `${Math.max(parseFloat(percent), 0.1)}%`;
+
+    track.appendChild(fill);
+
+    const pct = document.createElement('div');
+    pct.style.width = '40px';
+    pct.style.textAlign = 'right';
+    pct.style.fontSize = '0.85rem';
+    pct.textContent = `${percent}%`;
+
+    row.appendChild(labelEl);
+    row.appendChild(track);
+    row.appendChild(pct);
+
+    return row;
+  }
+
+  // --- Δυναμικά επιχειρήματα ---
+  function addArgumentCard(side) {
+    const containerId = side === 'state' ? 'state-arguments' : 'dynatoi-arguments';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const index = container.querySelectorAll('.arg-card').length + 1;
+    const card = document.createElement('div');
+    card.className = 'arg-card';
+
+    const title = document.createElement('div');
+    title.className = 'arg-card-title';
+    title.textContent = `Επιχείρημα ${index}`;
+    card.appendChild(title);
+
+    const t1 = document.createElement('textarea');
+    t1.placeholder = 'Διατύπωση επιχειρήματος...';
+    card.appendChild(t1);
+
+    const t2 = document.createElement('textarea');
+    t2.placeholder = 'Ιστορική βάση (Νόμος/Νεαρά/Γεγονός)...';
+    card.appendChild(t2);
+
+    container.appendChild(card);
+  }
+
+  // --- Χρονόμετρο ---
+  let timerInterval = null;
+  let remainingSeconds = 0;
+
+  function updateTimerDisplay() {
+    const min = Math.floor(remainingSeconds / 60);
+    const sec = remainingSeconds % 60;
+    document.getElementById('display-min').textContent = String(min).padStart(2, '0');
+    document.getElementById('display-sec').textContent = String(sec).padStart(2, '0');
+  }
+
+  function startTimer() {
+    const min = parseInt(document.getElementById('timer-minutes').value) || 0;
+    const sec = parseInt(document.getElementById('timer-seconds').value) || 0;
+    remainingSeconds = min * 60 + sec;
+
+    const speaker = document.getElementById('speaker-select').value;
+    document.getElementById('current-speaker').textContent = 'Τώρα μιλά: ' + speaker;
+
+    if (remainingSeconds <= 0) {
+      alert('Ορίστε χρόνο.');
+      return;
+    }
+
+    if (timerInterval) clearInterval(timerInterval);
+
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      remainingSeconds--;
+      updateTimerDisplay();
+      if (remainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        alert('Τέλος χρόνου!');
+      }
+    }, 1000);
+  }
+
+  function resetTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    const min = parseInt(document.getElementById('timer-minutes').value) || 0;
+    const sec = parseInt(document.getElementById('timer-seconds').value) || 0;
+    remainingSeconds = min * 60 + sec;
+    updateTimerDisplay();
+  }
+
+  document.getElementById('speaker-select').addEventListener('change', (e) => {
+    document.getElementById('current-speaker').textContent = 'Τώρα μιλά: ' + e.target.value;
+  });
+
+  // --- Toggle φράσεων ---
+  function togglePhraseBank() {
+    const box = document.getElementById('phrase-bank');
+    const btn = document.getElementById('phrase-bank-toggle');
+    const visible = box.style.display === 'block';
+    box.style.display = visible ? 'none' : 'block';
+    btn.textContent = visible ? '🗣️ Φράσεις για διατύπωση επιχειρημάτων' : '🗣️ Απόκρυψη φράσεων';
+  }
+
+  // --- Rubric ---
+  function gatherRoundStats() {
+    let totalS = 0;
+    let totalD = 0;
+    let any = false;
+    for (let i = 1; i <= 3; i++) {
+      const s = parseInt(document.getElementById('rubric-state-' + i)?.value) || 0;
+      const d = parseInt(document.getElementById('rubric-dynatoi-' + i)?.value) || 0;
+      if (s > 0 || d > 0) any = true;
+      totalS += s;
+      totalD += d;
+    }
+    return { totalS, totalD, any };
+  }
+
+  function calculateRoundScores() {
+    const stats = gatherRoundStats();
+    const resEl = document.getElementById('round-results');
+    const fillEl = document.getElementById('round-progress-fill');
+    const labelEl = document.getElementById('round-progress-label');
+
+    if (!stats.any) {
+      resEl.textContent = '-';
+      return;
+    }
+
+    const totalAll = stats.totalS + stats.totalD;
+    resEl.innerHTML = `Δυναστεία: <strong>${stats.totalS}</strong> – Δυνατοί: <strong>${stats.totalD}</strong>`;
+
+    if (totalAll > 0) {
+      const pS = (stats.totalS / totalAll) * 100;
+      fillEl.style.width = pS + '%';
+      labelEl.textContent = `Ποσοστό: Δυναστεία ${pS.toFixed(0)}%`;
+    }
+  }
+
+  // --- Εκτυπώσεις ---
+  function printArguments() {
+    const container = document.getElementById('print-summary');
+    container.innerHTML = getStudentInfoHTML() + 
+      '<h1>Επιχειρήματα</h1>' + 
+      '<h2>Δυναστεία</h2>' + getArgsHTML('state-arguments') +
+      '<h2>Δυνατοί</h2>' + getArgsHTML('dynatoi-arguments');
+    window.print();
+  }
+
+  function getArgsHTML(id) {
+    const div = document.getElementById(id);
+    let html = '<ul>';
+    div.querySelectorAll('.arg-card').forEach(c => {
+      const t = c.querySelectorAll('textarea');
+      if (t[0].value) html += `<li>${t[0].value} (Βάση: ${t[1].value})</li>`;
+    });
+    return html + '</ul>';
+  }
+
+  function printScenarios() {
+    const container = document.getElementById('print-summary');
+    let html = getStudentInfoHTML() + '<h1>Σενάρια & Θέσεις</h1>';
+    document.querySelectorAll('details.scenario').forEach(s => {
+       html += '<h3>' + s.querySelector('summary').textContent + '</h3>';
+       html += '<p><strong>Δυναστεία:</strong> ' + document.getElementById(s.dataset.stateId).value + '</p>';
+       html += '<p><strong>Δυνατοί:</strong> ' + document.getElementById(s.dataset.dynatoiId).value + '</p>';
+    });
+    container.innerHTML = html;
+    window.print();
+  }
+
+  function printRound() {
+     const stats = gatherRoundStats();
+     const container = document.getElementById('print-summary');
+     container.innerHTML = getStudentInfoHTML() + 
+       `<h1>Βαθμολογία Debate</h1><p>Δυναστεία: ${stats.totalS}, Δυνατοί: ${stats.totalD}</p>`;
+     window.print();
+  }
+
+  function printResults() {
+    const container = document.getElementById('print-summary');
+    let html = getStudentInfoHTML() + '<h1>Συνολικά Αποτελέσματα</h1>';
+    html += '<h2>Ψηφοφορίες</h2>' + document.getElementById('post-results').innerHTML;
+    
+    // Ensure the calculation has run for the summary to be populated
+    const citizenSum = document.getElementById('citizen-summary').innerHTML;
+    if (citizenSum) {
+      html += '<h2>Προφίλ Τάξης</h2>' + citizenSum;
+    }
+    
+    html += '<h2>Συμπέρασμα</h2><p>' + document.getElementById('class-summary').value + '</p>';
+    container.innerHTML = html;
+    window.print();
+  }
+
+  // Init
+  window.addEventListener('DOMContentLoaded', () => {
+    addArgumentCard('state');
+    addArgumentCard('dynatoi');
+    // Ensure we start at step 0 (cover)
+    showStep(0);
+  });
+</script>
+</body>
+</html>
